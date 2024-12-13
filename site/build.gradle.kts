@@ -46,7 +46,7 @@ kobweb {
             head.add {
                 script {
                     // Needed by components/layouts/BlogLayout.kt
-                    src = "highlight.js/highlight.min.js"
+                    src = "/highlight.js/highlight.min.js"
                 }
             }
         }
