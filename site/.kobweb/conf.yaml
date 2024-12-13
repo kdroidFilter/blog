@@ -1,6 +1,6 @@
 site:
   title: "K-droid Blog"
-  basePath: "kdroidblog"
+  basePath: "blog"
 
 server:
   files:
