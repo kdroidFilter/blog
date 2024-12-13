@@ -6,6 +6,6 @@ pluginManagement {
     }
 }
 
-rootProject.name = "bitspittledev"
+rootProject.name = "kdroidblog"
 
 include(":site")

@@ -3,6 +3,7 @@ import com.varabyte.kobwebx.gradle.markdown.handlers.MarkdownHandlers
 import com.varabyte.kobwebx.gradle.markdown.ext.kobwebcall.KobwebCall
 import kotlinx.html.script
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import java.util.*
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -15,13 +16,13 @@ repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     mavenLocal {
         content {
-            includeGroup("dev.bitspittle")
+            includeGroup("com.kdroid")
         }
     }
 }
 
-group = "dev.bitspittle.site"
-version = "1.0-SNAPSHOT"
+group = "com.kdroid.blog"
+version = "0.1"
 
 class BlogEntry(
     val route: String,
@@ -29,10 +30,11 @@ class BlogEntry(
     val date: String,
     val title: String,
     val desc: String,
-    val tags: List<String>
+    val tags: List<String>,
+    val category: String
 ) {
     private fun String.escapeQuotes() = this.replace("\"", "\\\"")
-    fun toArticleEntry() = """ArticleEntry("$route", "$author", "$date", "${title.escapeQuotes()}", "${desc.escapeQuotes()}")"""
+    fun toArticleEntry() = """ArticleEntry("$route", "$author", "$date", "${title.escapeQuotes()}", "${desc.escapeQuotes()}", "$category")"""
 }
 
 kobweb {
@@ -52,7 +54,7 @@ kobweb {
 
     markdown {
         handlers {
-            val BS_WGT = "dev.bitspittle.site.components.widgets"
+            val BS_WGT = "com.kdroid.blog.components.widgets"
 
             code.set { code ->
                 "$BS_WGT.code.CodeBlock(\"\"\"${code.literal.escapeTripleQuotedText()}\"\"\", lang = ${
@@ -81,10 +83,10 @@ kobweb {
         }
 
         process.set { markdownEntries ->
-            val requiredFields = listOf("title", "description", "author", "date")
+            val requiredFields = listOf("title", "description", "author", "date", "category")
             val blogEntries = markdownEntries.mapNotNull { markdownEntry ->
                 val fm = markdownEntry.frontMatter
-                val (title, desc, author, date) = requiredFields
+                val (title, desc, author, date, category) = requiredFields
                     .map { key -> fm[key]?.singleOrNull() }
                     .takeIf { values -> values.all { it != null } }
                     ?.requireNoNulls()
@@ -94,10 +96,10 @@ kobweb {
                     }
 
                 val tags = fm["tags"] ?: emptyList()
-                BlogEntry(markdownEntry.route, author, date, title, desc, tags)
+                BlogEntry(markdownEntry.route, author, date, title, desc, tags, category)
             }
 
-            val blogPackage = "dev.bitspittle.site.pages.blog"
+            val blogPackage = "com.kdroid.blog.pages.blog"
             val blogPath = "${blogPackage.replace('.', '/')}/Index.kt"
             generateKotlin(blogPath, buildString {
                 appendLine(
@@ -108,9 +110,9 @@ kobweb {
 
                     import androidx.compose.runtime.*
                     import com.varabyte.kobweb.core.Page
-                    import dev.bitspittle.site.components.layouts.PageLayout
-                    import dev.bitspittle.site.components.widgets.blog.ArticleEntry
-                    import dev.bitspittle.site.components.widgets.blog.ArticleList
+                    import com.kdroid.blog.components.layouts.PageLayout
+                    import com.kdroid.blog.components.widgets.blog.ArticleEntry
+                    import com.kdroid.blog.components.widgets.blog.ArticleList
 
                     @Page
                     @Composable
@@ -134,6 +136,52 @@ kobweb {
                 )
             })
             println("Generated blog listing index at \"$blogPath\".")
+
+            // Generate a page for each category
+            val categoryEntries = blogEntries.groupBy { it.category }
+            categoryEntries.forEach { (category, entries) ->
+                val categoryPackage = "$blogPackage.categories"
+                val categoryPath = "${categoryPackage.replace('.', '/')}/${category.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(
+                        Locale.getDefault()
+                    ) else it.toString()
+                }}.kt"
+                generateKotlin(categoryPath, buildString {
+                    appendLine(
+                        """
+                        // This file is generated. Modify the build script if you need to change it.
+
+                        package $categoryPackage
+
+                        import androidx.compose.runtime.*
+                        import com.varabyte.kobweb.core.Page
+                        import com.kdroid.blog.components.layouts.PageLayout
+                        import com.kdroid.blog.components.widgets.blog.ArticleEntry
+                        import com.kdroid.blog.components.widgets.blog.ArticleList
+
+                        @Page("/${category.decapitalize()}")
+                        @Composable
+                        fun ${category.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }}Page() {
+                          PageLayout("${category.capitalize()} Posts") {
+                            val entries = listOf(
+                        """.trimIndent()
+                    )
+
+                    entries.sortedByDescending { it.date }.forEach { entry ->
+                        appendLine("      ${entry.toArticleEntry()},")
+                    }
+
+                    appendLine(
+                        """
+                            )
+                            ArticleList(entries)
+                          }
+                        }
+                        """.trimIndent()
+                    )
+                })
+                println("Generated category page for '$category' at \"$categoryPath\".")
+            }
         }
     }
 }
@@ -141,7 +189,6 @@ kobweb {
 kotlin {
     configAsKobwebApplication("bitspittledev")
     js {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions.target = "es2015"
     }
 
@@ -159,7 +206,6 @@ kotlin {
                 implementation(libs.kobweb.silk)
                 implementation(libs.silk.icons.fa)
                 implementation(libs.kobwebx.markdown)
-                implementation(libs.firebase.kotlin.bindings)
             }
         }
     }

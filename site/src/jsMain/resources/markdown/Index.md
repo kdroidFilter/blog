@@ -1,11 +1,10 @@
 ---
-root: .components.layouts.PageLayout("Welcome to Bitspittle.dev")
+root: .components.layouts.PageLayout("Welcome to my blog !")
 ---
 
-Hello! My name is David Herman.
+Hello! My name is Elyahou !
 
-I am a programmer with 20 years of experience -- with the first half in the game industry and the second half at Google.
-I am currently taking a break to work on [Kobweb](https://github.com/varabyte/kobweb).
+I am a Kotlin, native Android and Multiplatform developer, I am known in particular for having deployed a trial version of the K-droid filter, but also for having contributed to the Compose ecosystem for Desktop. 
 
-My plan with this site is to share both interactive tutorials and tech career advice gleaned from a long, bumpy road
-full of needlessly dumb mistakes.
+This blog is a bit like a personal notepad in which I write my tips, or my design plans for my future programs.
+
