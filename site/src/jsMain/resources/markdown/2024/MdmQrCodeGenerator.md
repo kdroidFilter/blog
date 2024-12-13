@@ -42,7 +42,7 @@ yU8yQt_wIndDnI8kmX-BRw1x55X6OPLJRUxaPuLbtvk
 
 Create a JSON payload with the necessary provisioning extras. Below is an example payload:
 
-```json
+```javascript
 {
     "android.app.extra.PROVISIONING_DEVICE_ADMIN_COMPONENT_NAME":
     "com.kdroid.filter/.listener.AdminListener",
