@@ -1,5 +1,6 @@
 site:
-  title: "BitSpittle.Dev"
+  title: "K-droid Blog"
+  basePath: "kdroidblog>"
 
 server:
   files:
