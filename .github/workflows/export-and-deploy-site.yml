@@ -45,10 +45,6 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Publish firebase-bindings to maven local
-        working-directory: firebase-bindings
-        run: ../gradlew publishToMavenLocal
-
       - name: Query Browser Cache ID
         id: browser-cache-id
         run: echo "value=$(./gradlew -q :site:kobwebBrowserCacheId)" >> $GITHUB_OUTPUT
