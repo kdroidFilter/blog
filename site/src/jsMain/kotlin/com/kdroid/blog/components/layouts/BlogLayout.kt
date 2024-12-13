@@ -40,7 +40,7 @@ fun BlogLayout(content: @Composable ColumnScope.() -> Unit) {
                     setAttribute("title", "hljs-style")
                 }.also { document.head!!.appendChild(it) }
             }
-            styleElement.setAttribute("href", "/highlight.js/styles/a11y-${colorMode.name.lowercase()}.min.css")
+            styleElement.setAttribute("href", "/blog/highlight.js/styles/a11y-${colorMode.name.lowercase()}.min.css")
         }
 
         LaunchedEffect(ctx.route) {
