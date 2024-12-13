@@ -22,7 +22,7 @@ repositories {
 }
 
 group = "com.kdroid.blog"
-version = "0.1"
+version = "0.1.1"
 
 class BlogEntry(
     val route: String,
