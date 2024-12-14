@@ -93,7 +93,10 @@ fun NavHeader() {
             val ctx = rememberPageContext()
 
             NavLink("/", "K-Droid Dev", LogoVariant)
-            NavLink("/blog/", "blog")
+            NavLink("/blog/", "Last posts")
+            NavLink("/android/", "Android")
+            NavLink("/kdroidFilter/", "KdroidFilter")
+            NavLink("/compose/", "Compose")
             Spacer()
             ColorModeButton(NavButtonStyle.toModifier())
             Tooltip(ElementTarget.PreviousSibling, "Toggle color mode", placement = PopupPlacement.BottomRight)
