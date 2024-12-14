@@ -4,7 +4,7 @@ root: .components.layouts.PageLayout("Welcome to my blog !")
 
 Hello! My name is Elyahou!
 
-I am a passionate Kotlin, native Android, and Multiplatform developer, dedicated to creating innovative solutions and pushing the boundaries of modern development. I am certified by JetBrains for my expertise in SQL, whether for backend development or data analysis. Currently, I am working towards certifications in Kotlin for Android and backend development to further validate my skills. Over the years, I have gained recognition for launching a trial version of the **K-droid filter**, as well as making impactful contributions to the **Compose ecosystem for Desktop**.
+I am a passionate Kotlin, native Android, and Multiplatform developer, dedicated to creating innovative solutions and pushing the boundaries of modern development. I am certified by JetBrains for my expertise in SQL, whether for backend development or data analysis. Currently, I am working towards certifications in Kotlin for Android and backend development to further validate my skills. Over the years, I have gained recognition for launching a trial version of the **K-droid filter**.
 
 I am also the creator of the following libraries:
 
