@@ -1,19 +1,16 @@
 ---
-
 root: .components.layouts.BlogLayout
 title: "Dynamic Theme Switching in Compose for Desktop"
 description: "Learn how to enable automatic dark and light theme switching in Compose for Desktop applications based on the operating system settings."
-author: "Your Name"
+author: "Elyahou Hadass"
 date: 2024-12-14
 tags:
-
-- compose for desktop
-- dark theme
-- light theme
-- kotlin
-- desktop development
-  category: "android"
-
+    - compose for desktop
+    - dark theme
+    - light theme
+    - kotlin
+    - desktop development
+category: "android"
 ---
 
 ## Dynamic Theme Switching in Compose for Desktop
