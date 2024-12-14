@@ -4,8 +4,7 @@ import androidx.compose.runtime.*
 import com.kdroid.blog.brand
 import com.kdroid.blog.components.widgets.button.ColorModeButton
 import com.varabyte.kobweb.browser.dom.ElementTarget
-import com.varabyte.kobweb.compose.css.Transition
-import com.varabyte.kobweb.compose.css.TransitionTimingFunction
+import com.varabyte.kobweb.compose.css.Cursor
 import com.varabyte.kobweb.compose.css.functions.blur
 import com.varabyte.kobweb.compose.css.functions.saturate
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -35,7 +34,6 @@ import com.varabyte.kobweb.silk.theme.colors.palette.background
 import com.varabyte.kobweb.silk.theme.colors.palette.border
 import com.varabyte.kobweb.silk.theme.colors.palette.color
 import com.varabyte.kobweb.silk.theme.colors.palette.toPalette
-import org.jetbrains.compose.web.ExperimentalComposeWebApi
 import org.jetbrains.compose.web.css.*
 
 @InitSilk
@@ -64,6 +62,7 @@ val NavHeaderStyle = CssStyle.base(extraModifier = { SmoothColorStyle.toModifier
 }
 
 sealed interface NavLinkKind : ComponentKind
+
 val NavLinkStyle = CssStyle<NavLinkKind> {
     val linkColor = colorMode.toPalette().color
 
@@ -95,33 +94,42 @@ private fun NavLink(path: String, text: String, linkVariant: CssStyleVariant<Nav
     )
 }
 
+@Composable
+fun MenuLinks() {
+    NavLink("/blog/", "Last posts")
+    NavLink("/android/", "Android")
+    NavLink("/kdroidFilter/", "KdroidFilter")
+    NavLink("/compose/", "Compose")
+}
 
 @Composable
-fun NavHeader(menuOpened : MutableState<Boolean>) {
+fun NavHeader(menuOpened: MutableState<Boolean>) {
     val breakpoint = rememberBreakpoint()
 
     Deferred {
         Row(NavHeaderStyle.toModifier()) {
             val ctx = rememberPageContext()
             if (breakpoint < Breakpoint.MD) {
-                FaBars(Modifier.padding(top = 5.px).color(if (ColorMode.currentState.value.isDark) Color.white else Color.black).align(Alignment.Top).onClick {
-                    menuOpened.value = !menuOpened.value
-                })
+                FaBars(
+                    Modifier
+                        .cursor(Cursor.Pointer)
+                        .padding(top = 5.px)
+                        .color(if (ColorMode.currentState.value.isDark) Color.white else Color.black)
+                        .align(Alignment.Top)
+                        .onClick {
+                            menuOpened.value = !menuOpened.value
+                        })
             }
-            Column{
+            Column {
                 NavLink("/", "K-Droid Dev", LogoVariant)
                 if (menuOpened.value) {
-                    NavLink("/blog/", "Last posts")
-                    NavLink("/android/", "Android")
-                    NavLink("/kdroidFilter/", "KdroidFilter")
-                    NavLink("/compose/", "Compose")
+                    MenuLinks()
                 }
             }
             if (breakpoint > Breakpoint.SM) {
-                NavLink("/blog/", "Last posts")
-                NavLink("/android/", "Android")
-                NavLink("/kdroidFilter/", "KdroidFilter")
-                NavLink("/compose/", "Compose")
+                MenuLinks()
+            } else {
+                menuOpened.value = false
             }
 
             Spacer()
@@ -132,3 +140,4 @@ fun NavHeader(menuOpened : MutableState<Boolean>) {
 
     }
 }
+
