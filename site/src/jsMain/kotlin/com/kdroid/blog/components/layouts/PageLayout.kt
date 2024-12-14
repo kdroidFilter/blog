@@ -33,7 +33,7 @@ fun PageLayout(title: String, description: String = "Tech chatter, tutorials, an
 
 
     LaunchedEffect(title) {
-        document.title = "$title"
+        document.title = title
         document.querySelector("""meta[name="description"]""")!!.setAttribute("content", description)
     }
 
@@ -89,7 +89,7 @@ fun PageLayout(title: String, description: String = "Tech chatter, tutorials, an
             modifier = Modifier.fillMaxSize().maxWidth(1200.px).align(Alignment.TopCenter).margin(top = 4.cssRem),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            NavHeader()
+            NavHeader(menuOpened = remember { mutableStateOf(false) })
             Div(CenteredSectionStyle.toAttrs()) {
                 H1 { SpanText(title) }
                 content()
