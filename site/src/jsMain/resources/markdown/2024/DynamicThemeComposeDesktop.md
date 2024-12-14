@@ -10,7 +10,7 @@ tags:
     - light theme
     - kotlin
     - desktop development
-category: "android"
+category: "Compose"
 ---
 
 ## Dynamic Theme Switching in Compose for Desktop
