@@ -43,8 +43,8 @@ The program will be written entirely in **Kotlin**. Here are the technologies an
   - **Compose Multiplatform** for PC and iOS versions.
   - **Jetpack Compose** for the Android version.
   - **Kobweb** to develop the web version.
-- **KosherKotlin** ([https://github.com/Sternbach-Software/KosherKotlin](https://github.com/Sternbach-Software/KosherKotlin)) for implementing Jewish calendar features.
-- **Compose Rich Editor** ([https://github.com/MohamedRejeb/compose-rich-editor](https://github.com/MohamedRejeb/compose-rich-editor)) for writing and managing comments.
+-  [**KosherKotlin**](https://github.com/Sternbach-Software/KosherKotlin) for implementing Jewish calendar features.
+-  [**Compose Rich Editor**](https://github.com/MohamedRejeb/compose-rich-editor) for writing and managing comments.
 
 We will use a modular architecture based on **Clean Architecture (CA)** combined with **Model-View-ViewModel (MVVM)** in the **KMP** part to structure and organize the code effectively and maintainably.
 
@@ -120,4 +120,6 @@ Here are the main features the application should include:
 - [ ] **Recently opened books**
 - [ ] **Automatic startup at system launch (Desktop)**
 - [ ] **Ability to minimize the app to the System Tray (Desktop)**
+
+That's all for today! Stay tuned for the next post, where I will detail the creation of the database.
 
