@@ -100,6 +100,8 @@ fun MenuLinks() {
     NavLink("/android/", "Android")
     NavLink("/kdroidFilter/", "KdroidFilter")
     NavLink("/compose/", "Compose")
+    NavLink("/seforim/", "Seforim")
+
 }
 
 @Composable
