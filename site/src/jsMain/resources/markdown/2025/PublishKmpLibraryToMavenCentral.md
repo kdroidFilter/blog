@@ -1,10 +1,10 @@
 ---
+root: .components.layouts.BlogLayout
 title: "How to Publish a KMP Library to Maven Central Without a Mac"
-description: "A step-by-step guide to publishing a Kotlin Multiplatform (KMP) library compatible with iOS and macOS to Maven Central, even without owning a Mac."
-author: "Elyahou Hadass"
-date: "2025-01-03"
-tags: [Kotlin, Maven Central, Multiplatform, iOS, macOS, Publishing]
-category: "KMP"
+description: A step-by-step guide to publishing a Kotlin Multiplatform (KMP) library compatible with iOS and macOS to Maven Central, even without owning a Mac.
+author: Elyahou Hadass
+date: 2025-01-03
+category: "kmp"
 ---
 
 Publishing a Kotlin Multiplatform (KMP) library that supports iOS and macOS to Maven Central can be done efficiently, even without access to a Mac. This tutorial outlines the process using the `vanniktech-maven-publish` plugin on a Linux machine. The steps are adaptable to Windows as well.
